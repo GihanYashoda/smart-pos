@@ -1,5 +1,4 @@
-package lk.ijse.dep11.pos;
-
+package lk.ijse.dep11.pos.db;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -33,7 +32,7 @@ public class SingleConnectionDataSource {
     }
 
 
-    private static SingleConnectionDataSource getInstance(){
+    public static SingleConnectionDataSource getInstance(){
         return (instance == null) ? (instance = new SingleConnectionDataSource()) : instance;
     }
 
