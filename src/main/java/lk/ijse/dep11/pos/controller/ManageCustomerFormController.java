@@ -2,6 +2,7 @@ package lk.ijse.dep11.pos.controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
@@ -44,16 +45,17 @@ public class ManageCustomerFormController {
         }
         tblCustomers.getSelectionModel().selectedItemProperty().addListener((ov, prev, cur) ->{
             if (cur != null){
-                btnSave.setText("Update");
+                btnSave.setText("UPDATE");
                 btnDelete.setDisable(false);
                 txtCustomerId.setText(cur.getId());
                 txtCustomerName.setText(cur.getName());
                 txtCustomerAddress.setText(cur.getAddress());
             }else {
-                btnSave.setText("Save");
+                btnSave.setText("SAVE");
                 btnDelete.setDisable(true);
             }
         });
+        Platform.runLater(txtCustomerName::requestFocus);
     }
 
     public void navigateToHome(MouseEvent mouseEvent) throws IOException {
@@ -86,7 +88,7 @@ public class ManageCustomerFormController {
         if (!isDataValid()) return;
         Customer customer = new Customer(txtCustomerId.getText().strip(), txtCustomerName.getText().strip(), txtCustomerAddress.getText().strip());
         try {
-            if (btnSave.getText().equals("Save")){
+            if (btnSave.getText().equals("SAVE")){
                 CustomerDataAccess.saveCustomer(customer);
                 tblCustomers.getItems().add(customer);
             } else {
